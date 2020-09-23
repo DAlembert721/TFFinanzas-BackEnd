@@ -20,10 +20,15 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/users/{userId}")
-    public UserResource getUserById(@PathVariable Long userId, @Valid @RequestBody SaveUserResource userRequest) {
+    @PostMapping("/users")
+    public UserResource createUser(@Valid @RequestBody SaveUserResource userRequest) {
         User user = convertToEntity(userRequest);
         return convertToResource(userService.createUser(user));
+    }
+
+    @GetMapping("/users/{userId}")
+    public UserResource getUserById(@PathVariable Long userId) {
+        return convertToResource(userService.getUserById(userId));
     }
 
     private User convertToEntity(SaveUserResource resource) {

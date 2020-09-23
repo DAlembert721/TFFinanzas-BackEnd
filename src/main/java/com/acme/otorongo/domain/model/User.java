@@ -24,7 +24,9 @@ public class User extends AuditModel {
     @NotNull
     @Size(max = 50)
     private String password;
-
-    @OneToOne(mappedBy = "users")
+    @OneToOne(mappedBy = "user"
+            ,fetch = FetchType.LAZY
+            , optional = false
+            , cascade = CascadeType.ALL)
     private Account account;
 }
