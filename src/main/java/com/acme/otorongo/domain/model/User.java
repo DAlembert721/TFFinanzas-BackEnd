@@ -41,8 +41,5 @@ public class User {
     @NotNull
     private Long phone;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "address_id ", nullable = false)
-    @JsonIgnore
-    private Address address;
+
 }
