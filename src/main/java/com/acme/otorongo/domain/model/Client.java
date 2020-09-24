@@ -2,47 +2,37 @@ package com.acme.otorongo.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
 @Entity
+@Table(name = "clients")
 @Data
-@Table(name = "users")
-public class User {
-
+public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    @Column(unique = true)
-    private String email;
+    @Size(max = 250)
+    private String name;
 
-    @NotNull
-    @Size(max = 50)
-    private String password;
-
-    @NotNull
-    @Size(max = 20)
-    private String firstName;
-
-    @NotNull
-    @Size(max = 20)
-    private String lastName;
-
-    @NotNull
-    @Size(max = 10 )
-    private String dni;
 
     @NotNull
     private Long phone;
 
+    @NotNull
+    private Float balance;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "address_id ", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "address_id", nullable = false)
     @JsonIgnore
     private Address address;
 }
