@@ -7,11 +7,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@EqualsAndHashCode(callSuper = true)
+
 @Entity
 @Data
 @Table(name = "users")
-public class User extends AuditModel {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,9 +24,19 @@ public class User extends AuditModel {
     @NotNull
     @Size(max = 50)
     private String password;
-    @OneToOne(mappedBy = "user"
-            ,fetch = FetchType.LAZY
-            , optional = false
-            , cascade = CascadeType.ALL)
-    private Account account;
+
+    @NotNull
+    @Size(max = 100)
+    private String firstName;
+
+    @NotNull
+    @Size(max = 100)
+    private String lastName;
+
+    @NotNull
+    @Size(max = 20)
+    private String dni;
+
+    @NotNull
+    private Long phone;
 }
