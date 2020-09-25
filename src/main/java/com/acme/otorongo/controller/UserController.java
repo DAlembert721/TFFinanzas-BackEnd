@@ -1,7 +1,7 @@
 package com.acme.otorongo.controller;
 
-import com.acme.otorongo.domain.model.User;
-import com.acme.otorongo.domain.service.UserService;
+import com.acme.otorongo.domain.model.users.User;
+import com.acme.otorongo.domain.service.users_service.UserService;
 import com.acme.otorongo.resource.SaveUserResource;
 import com.acme.otorongo.resource.UserResource;
 import org.modelmapper.ModelMapper;

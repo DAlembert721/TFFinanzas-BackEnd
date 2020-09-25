@@ -1,8 +1,8 @@
 package com.acme.otorongo.service;
 
-import com.acme.otorongo.domain.model.User;
-import com.acme.otorongo.domain.repository.UserRepository;
-import com.acme.otorongo.domain.service.UserService;
+import com.acme.otorongo.domain.model.users.User;
+import com.acme.otorongo.domain.repository.users_repository.UserRepository;
+import com.acme.otorongo.domain.service.users_service.UserService;
 import com.acme.otorongo.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
