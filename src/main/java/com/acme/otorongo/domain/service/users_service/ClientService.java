@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface ClientService {
     List<Client> getAllClients();
-    Client createClient(Client client);
+    List<Client> getAllClientsByUserId(Long userId);
+    List<Client> getAllClientsByDistrictId(Long districtId);
+    Client createClient(Client client, Long userId, Long districtId);
     Client getClientById(Long clientId);
     Client updateClient(Long clientId, Client client);
     ResponseEntity<?> deleteClient(Long clientId);
