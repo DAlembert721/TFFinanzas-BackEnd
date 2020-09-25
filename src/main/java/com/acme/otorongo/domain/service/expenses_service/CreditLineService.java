@@ -8,7 +8,7 @@ import java.util.List;
 public interface CreditLineService {
     List<CreditLine> getAllCreditLines();
     List<CreditLine> getAllCreditLinesByClientId(Long clientId);
-    CreditLine createCreditLine(CreditLine creditLine);
+    CreditLine createCreditLine(CreditLine creditLine, Long clientId);
     CreditLine getCreditLineById(Long creditLineId);
     CreditLine updateCreditLine(Long creditLineId, CreditLine creditLine);
     ResponseEntity<?> deleteCreditLine(Long creditLineId);

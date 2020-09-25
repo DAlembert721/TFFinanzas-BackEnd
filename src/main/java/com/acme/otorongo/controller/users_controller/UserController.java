@@ -1,9 +1,9 @@
-package com.acme.otorongo.controller;
+package com.acme.otorongo.controller.users_controller;
 
 import com.acme.otorongo.domain.model.users.User;
 import com.acme.otorongo.domain.service.users_service.UserService;
-import com.acme.otorongo.resource.SaveUserResource;
-import com.acme.otorongo.resource.UserResource;
+import com.acme.otorongo.resource.save_users_resource.SaveUserResource;
+import com.acme.otorongo.resource.users_resource.UserResource;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

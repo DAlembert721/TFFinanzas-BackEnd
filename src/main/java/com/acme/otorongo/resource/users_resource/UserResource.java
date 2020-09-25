@@ -1,4 +1,4 @@
-package com.acme.otorongo.resource;
+package com.acme.otorongo.resource.users_resource;
 
 
 import lombok.Data;
@@ -10,20 +10,9 @@ import javax.validation.constraints.Size;
 
 @Data
 public class UserResource {
-
     private String email;
-
-
     private String password;
-
-
     private String lastName;
-
-
     private String dni;
-
-
     private Long phone;
-
-
 }

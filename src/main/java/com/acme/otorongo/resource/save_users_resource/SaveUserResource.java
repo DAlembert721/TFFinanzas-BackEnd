@@ -1,4 +1,4 @@
-package com.acme.otorongo.resource;
+package com.acme.otorongo.resource.save_users_resource;
 
 import lombok.Data;
 

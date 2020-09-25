@@ -4,7 +4,7 @@ import com.acme.otorongo.domain.model.promissories.PromissoryNoteInitialCost;
 
 import java.util.List;
 
-public interface PromissoryNoteInitialService {
+public interface PromissoryNoteInitialCostService {
     List<PromissoryNoteInitialCost> getAllPromissoryNoteInitialsByPromissoryNoteId(Long promissoryNoteId);
     List<PromissoryNoteInitialCost> getAllPromissoryNoteInitialsByInitialCostId(Long initialCostId);
     PromissoryNoteInitialCost save(PromissoryNoteInitialCost promissoryNoteInitialCost,
