@@ -1,4 +1,4 @@
-package com.acme.otorongo.service;
+package com.acme.otorongo.service.users_service_impl;
 
 import com.acme.otorongo.domain.model.users.User;
 import com.acme.otorongo.domain.repository.users_repository.UserRepository;
