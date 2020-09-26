@@ -6,6 +6,7 @@ import com.acme.otorongo.resource.promissories_resource.PromissoryNoteResource;
 import com.acme.otorongo.resource.save_promissories_resource.SavePromissoryNoteResource;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,7 @@ public class PromissoryNoteController {
     private final PromissoryNoteService promissoryNoteService;
     private final ModelMapper mapper;
 
+    @Autowired
     public PromissoryNoteController(PromissoryNoteService promissoryNoteService, ModelMapper mapper){
         this.promissoryNoteService = promissoryNoteService;
         this.mapper = mapper;
