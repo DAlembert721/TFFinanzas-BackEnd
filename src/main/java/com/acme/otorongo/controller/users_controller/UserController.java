@@ -14,11 +14,14 @@ import javax.validation.Valid;
 @RequestMapping("/api")
 public class UserController {
 
-    @Autowired
-    private ModelMapper mapper;
+    private final ModelMapper mapper;
+    private final UserService userService;
 
     @Autowired
-    private UserService userService;
+    public UserController(UserService userService, ModelMapper mapper){
+        this.userService = userService;
+        this.mapper = mapper;
+    }
 
     @PostMapping("/users")
     public UserResource createUser(@Valid @RequestBody SaveUserResource userRequest) {
