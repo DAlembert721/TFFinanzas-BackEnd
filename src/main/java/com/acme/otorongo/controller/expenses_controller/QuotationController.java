@@ -6,6 +6,7 @@ import com.acme.otorongo.resource.expenses_resource.QuotationResource;
 import com.acme.otorongo.resource.save_expenses_resource.SaveQuotationResource;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,8 +50,8 @@ public class QuotationController {
     }
 
     @DeleteMapping("/quotations/{quotationId}")
-    public void deleteQuotation(@PathVariable(name = "quotationId") Long quotationId){
-        quotationService.deleteQuotation(quotationId);
+    public ResponseEntity<?> deleteQuotation(@PathVariable(name = "quotationId") Long quotationId){
+        return quotationService.deleteQuotation(quotationId);
     }
 
     private Quotation convertToEntity(SaveQuotationResource resource){

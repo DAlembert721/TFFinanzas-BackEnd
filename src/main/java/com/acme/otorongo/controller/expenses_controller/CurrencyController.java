@@ -6,6 +6,7 @@ import com.acme.otorongo.resource.expenses_resource.CurrencyResource;
 import com.acme.otorongo.resource.save_expenses_resource.SaveCurrencyResource;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,8 +50,8 @@ public class CurrencyController {
     }
 
     @DeleteMapping("/currencies/{currencyId}")
-    public void deleteCurrency(@PathVariable(name = "currencyId") Long currencyId){
-        currencyService.deleteCurrency(currencyId);
+    public ResponseEntity<?> deleteCurrency(@PathVariable(name = "currencyId") Long currencyId){
+        return currencyService.deleteCurrency(currencyId);
     }
 
     private Currency convertToEntity(SaveCurrencyResource resource){

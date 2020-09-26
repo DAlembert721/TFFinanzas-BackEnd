@@ -5,8 +5,12 @@ import com.acme.otorongo.domain.service.expenses_service.CreditLineService;
 import com.acme.otorongo.resource.expenses_resource.CreditLineResource;
 import com.acme.otorongo.resource.save_expenses_resource.SaveCreditLineResource;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.PostConstruct;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -55,8 +59,18 @@ public class CreditLineController {
     }
 
     @DeleteMapping("/creditLines/{creditLineId}")
-    public void deleteCreditLine(@PathVariable(name = "creditLineId") Long creditLineId){
-        creditLineService.deleteCreditLine(creditLineId);
+    public ResponseEntity<?> deleteCreditLine(@PathVariable(name = "creditLineId") Long creditLineId){
+        return creditLineService.deleteCreditLine(creditLineId);
+    }
+
+    @PostConstruct
+    public void init(){
+        mapper.addMappings(new PropertyMap<CreditLine, CreditLineResource>() {
+            @Override
+            protected void configure() {
+                map().setClientName(source.getClient().getName());
+            }
+        });
     }
 
     private CreditLine convertToEntity(SaveCreditLineResource resource){

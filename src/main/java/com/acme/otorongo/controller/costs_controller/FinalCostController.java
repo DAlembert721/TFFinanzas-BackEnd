@@ -6,6 +6,7 @@ import com.acme.otorongo.resource.costs_resource.FinalCostResource;
 import com.acme.otorongo.resource.save_costs_resource.SaveFinalCostResource;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,8 +50,8 @@ public class FinalCostController {
     }
 
     @DeleteMapping("/finalCosts/{finalCostId}")
-    public void deleteFinalCost(@PathVariable(name = "finalCostId") Long finalCostId){
-        finalCostService.deleteFinalCost(finalCostId);
+    public ResponseEntity<?> deleteFinalCost(@PathVariable(name = "finalCostId") Long finalCostId){
+        return finalCostService.deleteFinalCost(finalCostId);
     }
 
     private FinalCost convertToEntity(SaveFinalCostResource resource){

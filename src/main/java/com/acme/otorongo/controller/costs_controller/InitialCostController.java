@@ -6,6 +6,7 @@ import com.acme.otorongo.resource.costs_resource.InitialCostResource;
 import com.acme.otorongo.resource.save_costs_resource.SaveInitialCostResource;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,8 +50,8 @@ public class InitialCostController {
     }
 
     @DeleteMapping("/initialCosts/{initialCostId}")
-    public void deleteInitialCost(@PathVariable(name = "initialCostId") Long initialCostId){
-        initialCostService.deleteInitialCost(initialCostId);
+    public ResponseEntity<?> deleteInitialCost(@PathVariable(name = "initialCostId") Long initialCostId){
+        return initialCostService.deleteInitialCost(initialCostId);
     }
 
     private InitialCost convertToEntity(SaveInitialCostResource resource){

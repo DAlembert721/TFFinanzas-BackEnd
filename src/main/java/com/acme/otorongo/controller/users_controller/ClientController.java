@@ -7,6 +7,7 @@ import com.acme.otorongo.resource.users_resource.ClientResource;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
@@ -71,9 +72,9 @@ public class ClientController {
     }
 
     @DeleteMapping("/clients/{clientId}")
-    public void deleteClient(@PathVariable(name = "clientId") Long clientId)
+    public ResponseEntity<?> deleteClient(@PathVariable(name = "clientId") Long clientId)
     {
-        clientService.deleteClient(clientId);
+        return clientService.deleteClient(clientId);
     }
 
     @PostConstruct

@@ -6,6 +6,7 @@ import com.acme.otorongo.resource.expenses_resource.RateResource;
 import com.acme.otorongo.resource.save_expenses_resource.SaveRateResource;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,8 +50,8 @@ public class RateController {
     }
 
     @DeleteMapping("/rates/{rateId}")
-    public void deleteRate(@PathVariable(name = "rateId") Long rateId){
-        rateService.deleteRate(rateId);
+    public ResponseEntity<?> deleteRate(@PathVariable(name = "rateId") Long rateId){
+        return rateService.deleteRate(rateId);
     }
 
     private Rate convertToEntity(SaveRateResource resource){
