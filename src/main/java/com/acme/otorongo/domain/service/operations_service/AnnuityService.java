@@ -8,6 +8,7 @@ public interface AnnuityService {
     List<Annuity> getAllAnnuities();
     List<Annuity> getAllAnnuitiesByRateId(Long rateId);
     List<Annuity> getAllAnnuitiesByQuotationId(Long quotationId);
-    Annuity save(Annuity annuity);
+    Annuity save(Annuity annuity, Long clientId,
+                 Long currencyId, Long quotationId, Long rateId);
     Annuity update(Long annuityId, Annuity annuity);
 }

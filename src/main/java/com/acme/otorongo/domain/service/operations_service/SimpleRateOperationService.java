@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface SimpleRateOperationService {
     List<SimpleRateOperation> getAllSimpleRateOperations();
-    SimpleRateOperation save(SimpleRateOperation simpleRateOperation);
+    SimpleRateOperation save(SimpleRateOperation simpleRateOperation, Long clientId, Long currencyId);
     SimpleRateOperation update(Long simpleRateOperationId, SimpleRateOperation simpleRateOperation);
 }

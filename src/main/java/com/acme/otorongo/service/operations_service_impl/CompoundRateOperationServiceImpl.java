@@ -1,8 +1,9 @@
 package com.acme.otorongo.service.operations_service_impl;
 
 import com.acme.otorongo.domain.model.operations.CompoundRateOperation;
-import com.acme.otorongo.domain.model.operations.SimpleRateOperation;
+import com.acme.otorongo.domain.repository.expenses_repository.*;
 import com.acme.otorongo.domain.repository.operations_repository.CompoundRateOperationRepository;
+import com.acme.otorongo.domain.repository.users_repository.ClientRepository;
 import com.acme.otorongo.domain.service.operations_service.CompoundRateOperationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,10 +14,20 @@ import java.util.List;
 public class CompoundRateOperationServiceImpl implements CompoundRateOperationService {
 
     private final CompoundRateOperationRepository compoundRateOperationRepository;
+    private final ClientRepository clientRepository;
+    private final CurrencyRepository currencyRepository;
+    private final QuotationRepository quotationRepository;
+    private final RateRepository rateRepository;
 
     @Autowired
-    public CompoundRateOperationServiceImpl(CompoundRateOperationRepository compoundRateOperationRepository){
+    public CompoundRateOperationServiceImpl(CompoundRateOperationRepository compoundRateOperationRepository,
+                                            ClientRepository clientRepository, CurrencyRepository currencyRepository,
+                                            QuotationRepository quotationRepository, RateRepository rateRepository){
         this.compoundRateOperationRepository = compoundRateOperationRepository;
+        this.clientRepository = clientRepository;
+        this.currencyRepository = currencyRepository;
+        this.quotationRepository = quotationRepository;
+        this.rateRepository = rateRepository;
     }
 
     @Override
@@ -35,8 +46,13 @@ public class CompoundRateOperationServiceImpl implements CompoundRateOperationSe
     }
 
     @Override
-    public CompoundRateOperation save(CompoundRateOperation compoundRateOperation) {
-        return null;
+    public CompoundRateOperation save(CompoundRateOperation compoundRateOperation, Long clientId,
+                                      Long currencyId, Long quotationId, Long rateId) {
+        compoundRateOperation.setClient(clientRepository.findById(clientId).orElse(null));
+        compoundRateOperation.setCurrency(currencyRepository.findById(currencyId).orElse(null));
+        compoundRateOperation.setQuotation(quotationRepository.findById(quotationId).orElse(null));
+        compoundRateOperation.setRate(rateRepository.findById(rateId).orElse(null));
+        return compoundRateOperationRepository.save(compoundRateOperation);
     }
 
     @Override
