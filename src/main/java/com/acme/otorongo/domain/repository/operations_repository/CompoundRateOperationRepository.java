@@ -10,5 +10,4 @@ import java.util.List;
 public interface CompoundRateOperationRepository extends JpaRepository<CompoundRateOperation, Long> {
     List<CompoundRateOperation> findByQuotationId(Long quotationId);
     List<CompoundRateOperation> findByRateId(Long rateId);
-    void deleteById(Long compoundRateOperationId);
 }

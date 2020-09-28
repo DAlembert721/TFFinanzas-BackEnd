@@ -15,15 +15,10 @@ import java.util.List;
 @Service
 public class OperationServiceImpl implements OperationService {
     private final OperationRepository operationRepository;
-    private final ClientRepository clientRepository;
-    private final CurrencyRepository currencyRepository;
 
     @Autowired
-    public OperationServiceImpl(OperationRepository operationRepository, ClientRepository clientRepository,
-                                CurrencyRepository currencyRepository){
+    public OperationServiceImpl(OperationRepository operationRepository){
         this.operationRepository = operationRepository;
-        this.clientRepository = clientRepository;
-        this.currencyRepository = currencyRepository;
     }
 
     @Override
@@ -42,28 +37,10 @@ public class OperationServiceImpl implements OperationService {
     }
 
     @Override
-    public Operation createOperation(Operation operation, Long currencyId, Long clientId) {
-        return null;
-    }
-
-    @Override
     public Operation getOperationId(Long operationId) {
         return operationRepository.findById(operationId)
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Operation", "Id", operationId));
-    }
-
-    @Override
-    public Operation updateOperation(Long operationId, Operation operation) {
-        Operation existed = operationRepository.findById(operationId)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Operation", "Id", operationId));
-        existed.setDiscountDate(operation.getDiscountDate());
-        existed.setCurrency(operation.getCurrency());
-        existed.setExpireDate(operation.getExpireDate());
-        existed.setRateValue(operation.getRateValue());
-        existed.setState(operation.getState());
-        return operationRepository.save(existed);
     }
 
     @Override

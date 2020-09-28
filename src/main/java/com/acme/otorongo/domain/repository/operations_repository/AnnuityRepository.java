@@ -11,5 +11,4 @@ import java.util.List;
 public interface AnnuityRepository extends JpaRepository<Annuity, Long> {
     List<Annuity> findByQuotationId(Long quotationId);
     List<Annuity> findByRateId(Long rateId);
-    void deleteById(Long annuityId);
 }

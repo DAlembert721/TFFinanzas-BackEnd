@@ -33,6 +33,8 @@ public class Operation {
     @NotNull
     private Boolean state;
 
+    private String type;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "operation_id")
     private PromissoryNote promissoryNote;
