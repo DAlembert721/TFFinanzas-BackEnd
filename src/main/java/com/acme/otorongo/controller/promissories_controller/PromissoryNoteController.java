@@ -33,28 +33,15 @@ public class PromissoryNoteController {
         return promissoryNotes.stream().map(this::convertToResource).collect(Collectors.toList());
     }
 
-    @GetMapping("/clients/{clientId}/promissoryNotes")
-    public List<PromissoryNoteResource> getAllPromissoryNotesByClientId(@PathVariable(name = "clientId") Long clientId){
-        List<PromissoryNote> promissoryNotes = promissoryNoteService.getAllPromissoryNotesByClientId(clientId);
-        return promissoryNotes.stream().map(this::convertToResource).collect(Collectors.toList());
-    }
-
     @GetMapping("/rates/{rateId}/promissoryNotes")
     public List<PromissoryNoteResource> getAllPromissoryNotesByRateId(@PathVariable(name = "rateId") Long rateId){
         List<PromissoryNote> promissoryNotes = promissoryNoteService.getAllPromissoryNotesByRateId(rateId);
         return promissoryNotes.stream().map(this::convertToResource).collect(Collectors.toList());
     }
 
-    @GetMapping("/quotations/{quotationId}/promissoryNotes")
-    public List<PromissoryNoteResource> getAllPromissoryNotesByQuotationId(@PathVariable(name = "quotationId") Long quotationId){
-        List<PromissoryNote> promissoryNotes = promissoryNoteService.getAllPromissoryNotesByQuotationId(quotationId);
-        return promissoryNotes.stream().map(this::convertToResource).collect(Collectors.toList());
-    }
-
-    @GetMapping("/currencies/{currencyId}/promissoryNotes")
-    public List<PromissoryNoteResource> getAllPromissoryNotesByCurrencyId(@PathVariable(name = "currencyId") Long currencyId){
-        List<PromissoryNote> promissoryNotes = promissoryNoteService.getAllPromissoryNotesByCurrencyId(currencyId);
-        return promissoryNotes.stream().map(this::convertToResource).collect(Collectors.toList());
+    @GetMapping("/operations/{operationId}/promissoryNotes")
+    public PromissoryNoteResource getPromissoryNoteByOperationId(@PathVariable(name = "operationId") Long operationId){
+        return convertToResource(promissoryNoteService.getPromissoryNoteByOperationId(operationId));
     }
 
     @GetMapping("/promissoryNotes/{promissoryNoteId}")
@@ -63,14 +50,12 @@ public class PromissoryNoteController {
         return convertToResource(promissoryNoteService.getPromissoryNoteId(promissoryNoteId));
     }
 
-    @PostMapping("/clients/{clientId}/rates/{rateId}/quotation/{quotationId}/currencies/{currencyId}/promissoryNotes")
+    @PostMapping("/rates/{rateId}/operations/{operationId}/promissoryNotes")
     public PromissoryNoteResource createPromissoryNote(@RequestBody SavePromissoryNoteResource promissoryNote,
-                                                       @PathVariable(name = "clientId") Long clientId,
                                                        @PathVariable(name = "rateId") Long rateId,
-                                                       @PathVariable(name = "quotationId") Long quotationId,
-                                                       @PathVariable(name = "currencyId") Long currencyId){
+                                                       @PathVariable(name = "operationId") Long operationId){
         PromissoryNote newPromissoryNote = promissoryNoteService
-                .createPromissoryNote(convertToEntity(promissoryNote), clientId, rateId, quotationId, currencyId);
+                .createPromissoryNote(convertToEntity(promissoryNote), rateId, operationId);
         return convertToResource(newPromissoryNote);
     }
 
@@ -92,10 +77,8 @@ public class PromissoryNoteController {
         mapper.addMappings(new PropertyMap<PromissoryNote, PromissoryNoteResource>() {
             @Override
             protected void configure() {
-                map().setClientName(source.getClient().getName());
-                map().setCurrencyName(source.getCurrency().getName());
-                map().setQuotationName(source.getQuotation().getName());
                 map().setRateName(source.getRate().getName());
+                map().setOperationId(source.getOperation().getId());
             }
         });
     }

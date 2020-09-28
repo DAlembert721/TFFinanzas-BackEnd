@@ -2,8 +2,8 @@ package com.acme.otorongo.service.promissories_service_impl;
 
 import com.acme.otorongo.domain.model.promissories.PromissoryNote;
 import com.acme.otorongo.domain.repository.expenses_repository.*;
+import com.acme.otorongo.domain.repository.operations_repository.OperationRepository;
 import com.acme.otorongo.domain.repository.promissories_repository.PromissoryNoteRepository;
-import com.acme.otorongo.domain.repository.users_repository.ClientRepository;
 import com.acme.otorongo.domain.service.promissories_service.PromissoryNoteService;
 import com.acme.otorongo.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,20 +16,16 @@ import java.util.List;
 public class PromissoryNoteServiceImpl implements PromissoryNoteService {
 
     private final PromissoryNoteRepository promissoryNoteRepository;
-    private final ClientRepository clientRepository;
+    private final OperationRepository operationRepository;
     private final RateRepository rateRepository;
-    private final QuotationRepository quotationRepository;
-    private final CurrencyRepository currencyRepository;
 
     @Autowired
     public PromissoryNoteServiceImpl(PromissoryNoteRepository promissoryNoteRepository,
-                                     ClientRepository clientRepository, RateRepository rateRepository,
-                                     QuotationRepository quotationRepository, CurrencyRepository currencyRepository){
+                                     OperationRepository operationRepository,
+                                     RateRepository rateRepository){
         this.promissoryNoteRepository = promissoryNoteRepository;
-        this.clientRepository = clientRepository;
+        this.operationRepository = operationRepository;
         this.rateRepository = rateRepository;
-        this.quotationRepository = quotationRepository;
-        this.currencyRepository = currencyRepository;
     }
 
     @Override
@@ -38,32 +34,19 @@ public class PromissoryNoteServiceImpl implements PromissoryNoteService {
     }
 
     @Override
-    public List<PromissoryNote> getAllPromissoryNotesByClientId(Long clientId) {
-        return promissoryNoteRepository.findByClientId(clientId);
-    }
-
-    @Override
     public List<PromissoryNote> getAllPromissoryNotesByRateId(Long rateId) {
         return promissoryNoteRepository.findByRateId(rateId);
     }
 
     @Override
-    public List<PromissoryNote> getAllPromissoryNotesByQuotationId(Long quotationId) {
-        return promissoryNoteRepository.findByQuotationId(quotationId);
+    public PromissoryNote getPromissoryNoteByOperationId(Long operationId) {
+        return promissoryNoteRepository.findByOperationId(operationId);
     }
 
     @Override
-    public List<PromissoryNote> getAllPromissoryNotesByCurrencyId(Long currencyId) {
-        return promissoryNoteRepository.findByCurrencyId(currencyId);
-    }
-
-    @Override
-    public PromissoryNote createPromissoryNote(PromissoryNote promissoryNote, Long clientId,
-                                               Long rateId, Long quotationId, Long currencyId) {
-        promissoryNote.setClient(clientRepository.findById(clientId).orElse(null));
+    public PromissoryNote createPromissoryNote(PromissoryNote promissoryNote, Long rateId, Long operationId) {
         promissoryNote.setRate(rateRepository.findById(rateId).orElse(null));
-        promissoryNote.setQuotation(quotationRepository.findById(quotationId).orElse(null));
-        promissoryNote.setCurrency(currencyRepository.findById(currencyId).orElse(null));
+        promissoryNote.setOperation(operationRepository.findById(operationId).orElse(null));
         return promissoryNoteRepository.save(promissoryNote);
     }
 
@@ -80,15 +63,10 @@ public class PromissoryNoteServiceImpl implements PromissoryNoteService {
                 .orElseThrow(() ->
                         new ResourceNotFoundException("PromissoryNote", "Id", promissoryNoteId));
         existed.setInitialWithholding(promissoryNote.getInitialWithholding());
-        existed.setNominalValue(promissoryNote.getNominalValue());
         existed.setPaymentDate(promissoryNote.getPaymentDate());
-        existed.setDiscountDate(promissoryNote.getDiscountDate());
-        existed.setExpireDate(promissoryNote.getExpireDate());
         existed.setFinalWithholding(promissoryNote.getFinalWithholding());
-        existed.setRateValue(promissoryNote.getRateValue());
         existed.setSignDate(promissoryNote.getSignDate());
         existed.setTcea(promissoryNote.getTcea());
-        existed.setTime(promissoryNote.getTime());
         return promissoryNoteRepository.save(existed);
     }
 
